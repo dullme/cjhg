@@ -3,7 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Supplier;
-use App\Models\supplierInvoice;
+use App\Models\SupplierInvoice;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -25,7 +25,7 @@ class SupplierInvoiceController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new supplierInvoice());
+        $grid = new Grid(new SupplierInvoice());
 
         $grid->filter(function($filter){
 
