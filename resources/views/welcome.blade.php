@@ -21,22 +21,6 @@
         </style>
     </head>
     <body class="antialiased">
-
-    <div class="row" style="display: inline-flex">
-        <div class="col-md-6" style="width: 50%">
-            @foreach($filter1 as $item)
-                <p>{{ $item }}</p>
-            @endforeach
-        </div>
-
-        <div class="col-md-6" style="width: 50%">
-            @foreach($filter2 as $item)
-                <p>{{ $item }}</p>
-            @endforeach
-        </div>
-    </div>
-
-
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
