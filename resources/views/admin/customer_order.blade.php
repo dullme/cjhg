@@ -57,7 +57,7 @@
                     </tr>
                     @foreach($customerOrders->orderInfoes as $info)
                         <tr>
-                            <td>{{ $info['item']['name'] }}【{{ $info['item']['weight'] }} kg/{{ $info['item']['unit'] }}】</td>
+                            <td>{{ $info['item']['name'] }}【{{ $info['item']['origin']['name'] }} {{ $info['item']['weight'] }} kg/{{ $info['item']['unit'] }}】</td>
                             <td style="text-align: end">{{ $info['content'] }}</td>
                             <td style="text-align: end">{{ $info['quantity'] }}</td>
                             <td style="text-align: end">¥{{ $info['unit_price'] }}</td>
@@ -80,7 +80,7 @@
                     </tr>
                     @foreach($customerOrders->solds as $sold)
                         <tr>
-                            <td>{{ $sold['name'] }}【{{ $sold['weight'] }} kg/{{ $sold['unit'] }}】</td>
+                            <td>{{ $sold['name'] }}【{{ $sold['origin'] }} {{ $sold['weight'] }} kg/{{ $sold['unit'] }}】</td>
                             <td style="text-align: end">{{ $sold['quantity'] }}</td>
                             <td style="text-align: end">¥{{ $sold['sales_price'] }}</td>
                             <td style="text-align: end;color: #969696">¥{{ $sold['purchase_total'] }}</td>
@@ -107,7 +107,7 @@
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->solds->sum('purchase_total'))->getValue() }}</p>
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->freight)->getValue() }}</p>
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->commission)->getValue() }}</p>
-                                <p style="margin-bottom: 20px">¥{{ $vat = bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->divide(bigNumber($customerOrders->vat)->add(1))->multiply($customerOrders->vat)->getValue() }}</p>
+                                <p style="margin-bottom: 20px" title="{{ $vat = bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->divide(bigNumber($customerOrders->vat)->add(1))->multiply($customerOrders->vat)->getValue() }}">¥{{ $vat = $vat > 0 ? $vat : '0.00' }}</p>
                             </div>
                         </div>
                         <hr style= "border:1px dashed #d8d8d8" />
