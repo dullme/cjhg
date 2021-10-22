@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Customer;
 use App\Models\CustomerOrder;
 use App\Models\OrderInfo;
 use App\Models\PurchaseOrder;
@@ -242,6 +243,16 @@ EOF
         $grid = new Grid(new CustomerOrder());
         $grid->model()->orderByDesc('id');
 
+        $grid->filter(function($filter){
+
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            // 在这里添加字段过滤器
+            $filter->equal('customer_id', '客户')->select(Customer::pluck('name', 'id'));
+
+        });
+
 //        $grid->column('id', __('Id'));
         $grid->column('no', __('销售单号'))->display(function ($no) {
             $url = url('/admin/customer-orders/' . $this->id);
@@ -251,51 +262,68 @@ EOF
 //        $grid->column('last_number', __('Last number'));
         $grid->customer()->name('客户');
         $grid->column('commission', __('佣金'))->display(function ($commission) {
-            return $commission == 0 ? '-' : '¥' . $commission;
-        });
+            return $commission == 0 ? '-' : $commission;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
         $grid->column('freight', __('总运费'))->display(function ($freight) {
-            return '¥' . $freight;
-        });
+            return $freight;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
+
 
         $grid->column('pick_up', __('提货运费'))->display(function ($pick_up) {
-            return '¥' . $pick_up;
-        });
+            return $pick_up;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
 
         $grid->column('transportation', __('运输运费'))->display(function ($transportation) {
-            return '¥' . $transportation;
-        });
+            return $transportation;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
 
         $grid->column('deliver_goods', __('送货运费'))->display(function ($deliver_goods) {
-            return '¥' . $deliver_goods;
-        });
+            return $deliver_goods;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
 
         $grid->column('vat', __('税率'))->display(function ($vat) {
             return intval(bigNumber($vat)->multiply(100)->getValue()) . '%';
         });
         $grid->column('amount', __('总金额'))->display(function ($amount) {
-            return '¥' . $amount;
-        });
+            return $amount;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
         $grid->column('invoice', __('待开发票'))->display(function ($invoice) {
             if ($invoice > 0) {
-                return '<span class="text-red">¥' . $invoice . '</span>';
+                return '<span class="text-red">' . $invoice . '</span>';
             } else if ($invoice == 0) {
                 return '-';
             }
 
-            return '¥' . $invoice;
-        });
+            return $invoice;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
         $grid->column('invoiced', __('已开发票'))->display(function ($invoiced) {
             if ($invoiced == 0) {
                 return '-';
             }
 
-            return '¥' . $invoiced;
-        });
+            return $invoiced;
+        })->totalRow(function ($item){
+            return '¥ '.$item;
+        })->prefix('¥')->sortable();
         $grid->column('logistics', __('物流公司'));
         $grid->column('order_time', __('下单时间'))->display(function ($order_time) {
             return substr($order_time, 0, 10);
-        });
-        $grid->column('created_at', __('创建时间'));
+        })->sortable();
+        $grid->column('created_at', __('创建时间'))->sortable();
 
 //        $grid->column('updated_at', __('Updated at'));
 
