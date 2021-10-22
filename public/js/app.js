@@ -2236,11 +2236,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 __webpack_require__(/*! ../../../public/vendor/datejs/date-zh-CN */ "./public/vendor/datejs/date-zh-CN.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      sum: 12312312,
       config: '',
       logistics: [],
       customers: [],
@@ -2271,6 +2275,13 @@ __webpack_require__(/*! ../../../public/vendor/datejs/date-zh-CN */ "./public/ve
       if (newVal > oldVal) {
         this.itemInfoSelect2('l-' + this.info_length);
       }
+    },
+    form_data: {
+      handler: function handler(val, oldVal) {
+        console.log("form_data.items: " + val.items, oldVal.items);
+      },
+      deep: true //true 深度监听
+
     }
   },
   created: function created() {
@@ -23744,7 +23755,20 @@ var render = function() {
                                   ])
                                 ])
                               : _vm._e()
-                          })
+                          }),
+                          _vm._v(" "),
+                          _vm.item_count > 0
+                            ? _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    staticStyle: { "text-align": "right" },
+                                    attrs: { colspan: "6" }
+                                  },
+                                  [_vm._v("¥ " + _vm._s(_vm.sum))]
+                                )
+                              ])
+                            : _vm._e()
                         ],
                         2
                       )

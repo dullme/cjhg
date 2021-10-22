@@ -49,7 +49,40 @@ class ItemController extends AdminController
         $grid->column('weight', '重量')->display(function ($weight){
             return $weight.' kg/'.$this->unit;
         })->label();
-//        $grid->column('search_name', __('简称'));
+
+
+        $grid->column('total_quantity', __('采购总数'))->display(function (){
+            return $this->warehouse->sum('quantity');
+        });
+
+        $grid->column('sold', __('已销售总数'))->display(function (){
+            return $this->warehouse->sum('sold');
+        });
+
+        $grid->column('for_sale', __('剩余库存'))->display(function (){
+            return $this->warehouse->sum('for_sale');
+        });
+
+        $grid->column('sold_price', __('已销售总金额'))->display(function (){
+            $warehouse = collect($this->warehouse)->map(function ($item){
+                return [
+                    'sold_price' => bigNumber($item['sold'])->multiply($item['unit_price'])->getValue()
+                ];
+            });
+
+            return '¥ ' .bigNumber($warehouse->sum('sold_price'))->getValue();
+        });
+
+        $grid->column('for_sale_price', __('库存货值'))->display(function (){
+            $warehouse = collect($this->warehouse)->map(function ($item){
+                return [
+                    'for_sale_price' => bigNumber($item['for_sale'])->multiply($item['unit_price'])->getValue()
+                ];
+            });
+
+            return '¥ ' .bigNumber($warehouse->sum('for_sale_price'))->getValue();
+        });
+        
         $grid->column('created_at', __('创建时间'));
 //        $grid->column('updated_at', __('Updated at'));
 

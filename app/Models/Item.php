@@ -18,4 +18,9 @@ class Item extends BaseModel
     {
         return $this->belongsTo(Origin::class);
     }
+
+    public function warehouse()
+    {
+        return $this->hasMany(Warehouse::class);
+    }
 }

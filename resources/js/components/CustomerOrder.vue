@@ -173,6 +173,9 @@
 
                                         <td><a class="btn btn-sm btn-danger table-field-remove" @click="deleteItem(item.id)"><i class="fa fa-trash"></i> 删除</a></td>
                                     </tr>
+                                    <tr v-if="item_count > 0">
+                                        <td colspan="6" style="text-align: right;">¥ {{ sum }}</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                                 <hr style="margin-top: 0;">
@@ -216,6 +219,7 @@
     export default {
         data() {
             return {
+                sum:12312312,
                 config:'',
                 logistics:[],
                 customers:[],
@@ -244,6 +248,12 @@
                 if(newVal > oldVal){
                     this.itemInfoSelect2('l-'+this.info_length)
                 }
+            },
+            form_data:{
+                handler(val, oldVal){
+                    console.log("form_data.items: "+val.items, oldVal.items);
+                },
+                deep:true //true 深度监听
             }
         },
 
