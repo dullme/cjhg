@@ -151,7 +151,7 @@
                                         <td>
                                             <select class="form-control" :id="'item_' + item.id">
                                                 <option value="">请选择</option>
-                                                <option v-for="select_item in select_items" :value="select_item.id">{{ select_item.name + '【'+ select_item.weight + ' kg/' + select_item.unit + '】-【' +select_item.for_sale+'】' }}</option>
+                                                <option v-for="select_item in select_items" :value="select_item.id">{{ select_item.name + '【'+ select_item.origin + ' ' + select_item.weight + ' kg/' + select_item.unit + '】-【' +select_item.for_sale+'】' }}</option>
                                             </select>
                                         </td>
                                         <td>

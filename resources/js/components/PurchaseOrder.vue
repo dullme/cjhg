@@ -48,21 +48,18 @@
                                     <tbody>
                                     <tr>
                                         <th>产品</th>
-                                        <th style="width: 100px">重量</th>
                                         <th style="width: 100px">单价</th>
                                         <th style="width: 100px">数量</th>
                                         <th style="width: 100px">总价</th>
+                                        <th style="width: 100px">备注</th>
                                         <th style="width: 50px">操作</th>
                                     </tr>
                                     <tr v-for="(item) in form_data.items" :key="item.length" v-if="item.deleted== false">
                                         <td>
                                             <select class="form-control" :id="'item_' + item.id">
                                                 <option value="">请选择</option>
-                                                <option v-for="select_item in select_items" :value="select_item.id">{{ select_item.name + '【'+ select_item.weight + ' kg/' + select_item.unit + '】' }}</option>
+                                                <option v-for="select_item in select_items" :value="select_item.id">{{ select_item.name + '【'+ select_item.origin.name + ' ' + select_item.weight + ' kg/' + select_item.unit + '】' }}</option>
                                             </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="" @keyup="item.remark = $event.target.value" placeholder="重量" >
                                         </td>
                                         <td>
                                             <input type="text" class="form-control decimal" value="0"
@@ -75,6 +72,9 @@
 
                                         <td>
                                             <span class="form-control">{{ item.unit_price * item.quantity }}</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" value="" @keyup="item.remark = $event.target.value" placeholder="备注" >
                                         </td>
                                         <td><a class="btn btn-sm btn-danger table-field-remove" @click="deleteItem(item.id)"><i class="fa fa-trash"></i> 删除</a></td>
                                     </tr>

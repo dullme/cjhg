@@ -206,22 +206,25 @@ EOF
 
     public function getCanSalesItems()
     {
-        $warehouse = Warehouse::with('item')->where('for_sale', '>', 0)->get();
+        $warehouse = Warehouse::with('item.origin')->where('for_sale', '>', 0)->get();
         $warehouse = $warehouse->map(function ($item) {
             return [
                 'id'       => $item->item->id,
                 'for_sale' => $item->for_sale,
                 'name'     => $item->item->name,
                 'weight'   => $item->item->weight,
-                'unit'     => $item->item->unit
+                'unit'     => $item->item->unit,
+                'origin'     => $item->item->origin->name
             ];
         })->groupBy('id');
         $warehouse = $warehouse->map(function ($item) {
+
             return [
                 'id'       => $item[0]['id'],
                 'name'     => $item[0]['name'],
                 'weight'   => $item[0]['weight'],
                 'unit'     => $item[0]['unit'],
+                'origin'     => $item[0]['origin'],
                 'for_sale' => collect($item)->sum('for_sale'),
             ];
         })->values();
@@ -339,7 +342,7 @@ EOF
 
     public function show($id, Content $content)
     {
-        $customerOrders = CustomerOrder::with(['customer', 'orderInfoes.item', 'customerInvoiceDetails.customerInvoice', 'solds' => function ($query) {
+        $customerOrders = CustomerOrder::with(['customer', 'orderInfoes.item.origin', 'customerInvoiceDetails.customerInvoice', 'solds' => function ($query) {
             $query->with('item', 'warehouse.purchaseOrder');
         }])->find($id);
 

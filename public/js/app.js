@@ -23644,6 +23644,8 @@ var render = function() {
                                                 _vm._s(
                                                   select_item.name +
                                                     "【" +
+                                                    select_item.origin +
+                                                    " " +
                                                     select_item.weight +
                                                     " kg/" +
                                                     select_item.unit +
@@ -24095,6 +24097,8 @@ var render = function() {
                                                 _vm._s(
                                                   select_item.name +
                                                     "【" +
+                                                    select_item.origin.name +
+                                                    " " +
                                                     select_item.weight +
                                                     " kg/" +
                                                     select_item.unit +
@@ -24107,22 +24111,6 @@ var render = function() {
                                       ],
                                       2
                                     )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        value: "",
-                                        placeholder: "重量"
-                                      },
-                                      on: {
-                                        keyup: function($event) {
-                                          item.remark = $event.target.value
-                                        }
-                                      }
-                                    })
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
@@ -24169,6 +24157,22 @@ var render = function() {
                                         )
                                       ]
                                     )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        value: "",
+                                        placeholder: "备注"
+                                      },
+                                      on: {
+                                        keyup: function($event) {
+                                          item.remark = $event.target.value
+                                        }
+                                      }
+                                    })
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
@@ -24296,13 +24300,13 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("产品")]),
       _vm._v(" "),
-      _c("th", { staticStyle: { width: "100px" } }, [_vm._v("重量")]),
-      _vm._v(" "),
       _c("th", { staticStyle: { width: "100px" } }, [_vm._v("单价")]),
       _vm._v(" "),
       _c("th", { staticStyle: { width: "100px" } }, [_vm._v("数量")]),
       _vm._v(" "),
       _c("th", { staticStyle: { width: "100px" } }, [_vm._v("总价")]),
+      _vm._v(" "),
+      _c("th", { staticStyle: { width: "100px" } }, [_vm._v("备注")]),
       _vm._v(" "),
       _c("th", { staticStyle: { width: "50px" } }, [_vm._v("操作")])
     ])

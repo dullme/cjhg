@@ -59,7 +59,7 @@ class ItemController extends AdminController
     public function getItems()
     {
         $q = request()->input('q');
-        $items = Item::where('name', 'like', '%'.$q.'%')->get();
+        $items = Item::with('origin')->where('name', 'like', '%'.$q.'%')->get();
 
         return response()->json($items);
     }
