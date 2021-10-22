@@ -251,6 +251,8 @@ EOF
             // 在这里添加字段过滤器
             $filter->equal('customer_id', '客户')->select(Customer::pluck('name', 'id'));
 
+            $filter->between('order_time', '下单时间')->date();
+
         });
 
 //        $grid->column('id', __('Id'));

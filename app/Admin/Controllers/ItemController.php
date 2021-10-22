@@ -82,7 +82,7 @@ class ItemController extends AdminController
 
             return '¥ ' .bigNumber($warehouse->sum('for_sale_price'))->getValue();
         });
-        
+
         $grid->column('created_at', __('创建时间'));
 //        $grid->column('updated_at', __('Updated at'));
 
