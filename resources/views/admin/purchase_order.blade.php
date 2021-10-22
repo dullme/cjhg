@@ -28,17 +28,17 @@
                     <tbody>
                     <tr style="background-color: #03a9f4;color: white">
                         <th>产品</th>
-                        <th style="width: 100px;text-align: end">重量</th>
                         <th style="width: 100px;text-align: end">数量</th>
                         <th style="width: 100px;text-align: end">单价</th>
                         <th style="width: 100px;text-align: end">总价</th>
+                        <th style="width: 100px;text-align: end">备注</th>
                     </tr>
                     @foreach($purchaseOrders->warehouses as $warehouse)
                         <tr>
-                            <td>{{ $warehouse->item->name }}【{{ $warehouse->item->weight }} kg/{{ $warehouse->item->unit }}】</td>
-                            <td style="text-align: end">{{ $warehouse->remark }}</td>
+                            <td>{{ $warehouse->item->name }}【{{ $warehouse->item->origin->name }} {{ $warehouse->item->weight }} kg/{{ $warehouse->item->unit }}】</td>
                             <td style="text-align: end">{{ $warehouse->quantity }}</td>
                             <td style="text-align: end">{{ $warehouse->unit_price }}</td>
+                            <td style="text-align: end">{{ $warehouse->remark }}</td>
                             <td style="text-align: end">{{ $warehouse->total }}</td>
                         </tr>
                     @endforeach

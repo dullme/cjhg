@@ -46,7 +46,7 @@ EOF
     public function show($id, Content $content)
     {
         $purchaseOrders = PurchaseOrder::with(['supplier', 'warehouses' => function ($query) {
-            $query->with('item');
+            $query->with('item.origin');
         }])->find($id);
 
         return $content
