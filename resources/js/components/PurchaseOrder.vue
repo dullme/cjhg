@@ -71,12 +71,15 @@
                                         </td>
 
                                         <td>
-                                            <span class="form-control">{{ item.unit_price * item.quantity }}</span>
+                                            <span class="form-control">{{ (item.unit_price * item.quantity).toFixed(2) }}</span>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" value="" @keyup="item.remark = $event.target.value" placeholder="备注" >
                                         </td>
                                         <td><a class="btn btn-sm btn-danger table-field-remove" @click="deleteItem(item.id)"><i class="fa fa-trash"></i> 删除</a></td>
+                                    </tr>
+                                    <tr v-if="item_count > 0">
+                                        <td colspan="6" style="text-align: right;font-size: 18px;padding-right: 83px">¥ {{ sum }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -121,6 +124,7 @@
     export default {
         data() {
             return {
+                sum:0,
                 suppliers:[],
                 select_items:[],
                 item_count:0,
@@ -138,6 +142,18 @@
                 if(newVal > oldVal){
                     this.itemInfoSelect2('l-'+this.info_length)
                 }
+            },
+            form_data:{
+                handler(val, oldVal){
+                    let total_price = 0
+                    val.items.forEach((item)=>{
+                        if(item.deleted == false){
+                            total_price += item.quantity * item.unit_price
+                        }
+                    })
+                    this.sum = total_price.toFixed(2)
+                },
+                deep:true //true 深度监听
             }
         },
 
