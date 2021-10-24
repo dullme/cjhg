@@ -137,8 +137,25 @@ EOF
     {
         $grid = new Grid(new PurchaseOrder());
         $grid->model()->orderBy('id', 'desc');
+        $grid->filter(function($filter){
+
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            // 在这里添加字段过滤器
+            $filter->equal('supplier_id', '供应商')->select(Supplier::pluck('name', 'id'));
+
+            $filter->between('order_time', '下单时间')->date();
+
+        });
+
 
         $grid->header(function ($query) {
+            $current_total_price = $query->get()->map(function ($item){
+                $item['total_price'] = $item->warehouses->sum('total');
+                return $item;
+            })->sum('total_price');
+
             $purchase = PurchaseOrder::with('warehouses')->get();
 
             $purchase = $purchase->map(function ($item){
@@ -159,18 +176,21 @@ EOF
                 $months = $purchase[$year]->groupBy('month')->map(function ($item){
                     return $item->sum('order_total');
                 })->toArray();
+
+                $total_year = collect($months)->sum();
                 for($i=0;$i<12;$i++){
                     $data[$year][$i] = isset($months[$i+1]) ? $months[$i+1] : 0;
                 }
 
                 $res[] = [
                     'label' => $year,
+                    'total_year' => $total_year,
                     'data' => $data[$year],
                 ];
 
             }
 
-            return new Box('Bar chart', view('admin.chart.purchase', compact('res')));
+            return new Box('Bar chart', view('admin.chart.purchase', compact('res', 'current_total_price')));
         });
 
 //        $grid->column('id', __('Id'));

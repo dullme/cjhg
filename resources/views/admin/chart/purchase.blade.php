@@ -1,6 +1,10 @@
 <div style="width: 800px;">
     <canvas id="myChart"></canvas>
 </div>
+<div style="clear: both"></div>
+
+<p style="margin-top: 20px">当前数据总采购金额 <span>¥ {{ $current_total_price }}</span></p>
+
 <script>
     $(function () {
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -11,7 +15,7 @@
                 datasets: [
                     @foreach($res as $r)
                     {
-                        label: {{ $r['label'] }},
+                        label: {{ $r['label'] }} + '【'+{{ $r['total_year'] }} + '】',
                         data: {{ json_encode($r['data'], true) }},
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
