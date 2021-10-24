@@ -229,13 +229,15 @@ EOF
 
 
         $form->saving(function (Form $form) {
-            $po_no = PurchaseOrder::orderBy('id', 'DESC')->first();
-            $number = 100001;
-            if ($po_no) {
-                $number = $po_no->last_number + 1;
+            if($form->isCreating()){
+                $po_no = PurchaseOrder::orderBy('id', 'DESC')->first();
+                $number = 100001;
+                if ($po_no) {
+                    $number = $po_no->last_number + 1;
+                }
+                $form->last_number = $number;
+                $form->no = 'PO' . sprintf("%06d", $number);
             }
-            $form->last_number = $number;
-            $form->no = 'PO' . sprintf("%06d", $number);
         });
 
         return $form;
