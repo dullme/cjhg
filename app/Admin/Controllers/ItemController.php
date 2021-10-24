@@ -137,7 +137,7 @@ class ItemController extends ResponseController
 
             $items = Item::where([
                 'name' => $form->name,
-                'origin' => $form->origin,
+                'origin_id' => $form->origin_id,
                 'weight' => intval($form->weight*1000)/1000,
                 'unit' => $form->unit,
             ])->count();
