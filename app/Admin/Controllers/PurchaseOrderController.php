@@ -14,6 +14,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Box;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
@@ -136,6 +137,41 @@ EOF
     {
         $grid = new Grid(new PurchaseOrder());
         $grid->model()->orderBy('id', 'desc');
+
+        $grid->header(function ($query) {
+            $purchase = PurchaseOrder::with('warehouses')->get();
+
+            $purchase = $purchase->map(function ($item){
+                $order_time= Carbon::parse($item->order_time);
+                $item['year'] = $order_time->year;
+                $item['month'] = $order_time->month;
+                $item['order_total'] = $item->warehouses->sum('total');
+
+                return $item;
+            });
+
+            $purchase = $purchase->groupBy('year');
+            $years = $purchase->keys()->toArray();
+
+            $data = [];
+            $res = [];
+            foreach ($years as $year){
+                $months = $purchase[$year]->groupBy('month')->map(function ($item){
+                    return $item->sum('order_total');
+                })->toArray();
+                for($i=0;$i<12;$i++){
+                    $data[$year][$i] = isset($months[$i+1]) ? $months[$i+1] : 0;
+                }
+
+                $res[] = [
+                    'label' => $year,
+                    'data' => $data[$year],
+                ];
+
+            }
+
+            return new Box('Bar chart', view('admin.chart.purchase', compact('res')));
+        });
 
 //        $grid->column('id', __('Id'));
         $grid->column('no', __('采购单号'))->display(function ($no) {
