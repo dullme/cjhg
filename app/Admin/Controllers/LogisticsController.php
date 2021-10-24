@@ -9,7 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class LogisticsController extends AdminController
+class LogisticsController extends ResponseController
 {
     /**
      * Title for current resource.

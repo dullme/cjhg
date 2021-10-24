@@ -9,7 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class SupplierInvoiceController extends AdminController
+class SupplierInvoiceController extends ResponseController
 {
     /**
      * Title for current resource.

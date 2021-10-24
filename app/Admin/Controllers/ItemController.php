@@ -11,7 +11,7 @@ use Encore\Admin\Show;
 use Illuminate\Support\MessageBag;
 use Overtrue\Pinyin\Pinyin;
 
-class ItemController extends AdminController
+class ItemController extends ResponseController
 {
     /**
      * Title for current resource.
