@@ -70,7 +70,8 @@ class LogisticsController extends ResponseController
     {
         $form = new Form(new Logistics());
 
-        $form->text('name', __('名称'));
+        $form->text('name', __('名称'))->creationRules(['required', "unique:logistics"])
+            ->updateRules(['required', "unique:logistics,name,{{id}}"]);
 
         return $form;
     }

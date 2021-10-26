@@ -15,8 +15,8 @@ class CreateSuppliersTable extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->comment('供应商名称');
-            $table->string('tax_number')->comment('税号');
+            $table->string('name')->unique()->comment('供应商名称');
+            $table->string('tax_number')->unique()->comment('税号');
             $table->string('tel')->nullable()->comment('电话');
             $table->string('bank')->nullable()->comment('开户行');
             $table->string('account')->nullable()->comment('银行账号');

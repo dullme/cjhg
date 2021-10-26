@@ -28,10 +28,25 @@ class CustomerController extends ResponseController
         $grid = new Grid(new Customer());
         $grid->model()->with('customerOrders');
 
+        $grid->filter(function($filter){
+
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            // 在这里添加字段过滤器
+            $filter->like('name', '客户');
+
+            $filter->like('tax_number', '税号');
+
+        });
+
+
         $grid->column('name', __('客户名称'))->display(function ($name){
             $url = url('/admin/customer-invoices?&customer_id='.$this->id);
             return "<a href='{$url}'>{$name}</a>";
         });
+
+        $grid->column('tax_number', '税号');
 
         $grid->customerInvoice( __('发票总数'))->count();
 
@@ -113,8 +128,10 @@ class CustomerController extends ResponseController
     {
         $form = new Form(new Customer());
 
-        $form->text('name', __('客户名称'));
-        $form->text('tax_number', __('税号'));
+        $form->text('name', __('客户名称'))->creationRules(['required', "unique:customers"])
+            ->updateRules(['required', "unique:customers,name,{{id}}"]);
+        $form->text('tax_number', __('税号'))->creationRules(['required', "unique:customers"])
+            ->updateRules(['required', "unique:customers,tax_number,{{id}}"]);
         $form->text('address', __('地址'));
         $form->text('tel', __('电话'));
         $form->text('bank', __('开户行'));

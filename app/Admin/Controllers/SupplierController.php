@@ -109,8 +109,10 @@ class SupplierController extends ResponseController
     {
         $form = new Form(new Supplier());
 
-        $form->text('name', __('供应商名称'));
-        $form->text('tax_number', __('税号'));
+        $form->text('name', __('供应商名称'))->creationRules(['required', "unique:customers"])
+            ->updateRules(['required', "unique:customers,name,{{id}}"]);
+        $form->text('tax_number', __('税号'))->creationRules(['required', "unique:suppliers"])
+            ->updateRules(['required', "unique:suppliers,tax_number,{{id}}"]);
         $form->text('address', __('地址'));
         $form->text('tel', __('电话'));
         $form->text('bank', __('开户行'));
