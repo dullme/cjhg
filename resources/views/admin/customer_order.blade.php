@@ -23,6 +23,7 @@
                             <a class="btn btn-info btn-xs" href="{{ url('/admin/customer-invoices/'.$item->customer_invoice_id) }}">{{ $item->customerInvoice->no }}</a>
                             @endforeach
                         </p>
+                        <p>备注：{{ $customerOrders->remarks }}</p>
                     </div>
 {{--                    <div class="col-md-6">--}}
 {{--                        <div style="display: flex;justify-content: flex-end">--}}
