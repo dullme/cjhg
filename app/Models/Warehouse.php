@@ -18,4 +18,9 @@ class Warehouse extends BaseModel
     {
         return $this->belongsTo(PurchaseOrder::class);
     }
+
+    public function solds()
+    {
+        return $this->hasMany(Sold::class);
+    }
 }

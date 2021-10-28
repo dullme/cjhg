@@ -47,8 +47,11 @@ EOF
     public function show($id, Content $content)
     {
         $purchaseOrders = PurchaseOrder::with(['supplier', 'warehouses' => function ($query) {
-            $query->with('item.origin');
+            $query->with('item.origin', 'solds.customerOrder');
         }])->find($id);
+
+
+//        dd($purchaseOrders->toArray());
 
         return $content
             ->title($this->title())

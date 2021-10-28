@@ -41,6 +41,18 @@
                             <td style="text-align: end">{{ $warehouse->remark }}</td>
                             <td style="text-align: end">{{ $warehouse->total }}</td>
                         </tr>
+                        @if($warehouse->solds->count())
+                            <tr style="background-color: rgba(221,221,221,0.1)">
+                                <td colspan="5">
+                                    @foreach($warehouse->solds as $sold)
+                                        <a class="label label-default" href="{{ url('/admin/customer-orders', $sold->customerOrder->id) }}">{{ $sold->customerOrder->no }}</a>
+                                    @endforeach
+
+                                </td>
+                            </tr>
+                        @endif
+
+
                     @endforeach
                     </tbody>
                 </table>

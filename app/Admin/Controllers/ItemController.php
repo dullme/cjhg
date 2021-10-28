@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Item;
 use App\Models\Origin;
+use App\Models\Sold;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -45,7 +46,9 @@ class ItemController extends ResponseController
 
 
         $grid->origin()->name(__('产地'));
-        $grid->column('name', __('产品名称'));
+        $grid->column('name', __('产品名称'))->display(function ($name){
+            return "<a href='/admin/items/{$this->id}'>{$name}</a>";
+        });
         $grid->column('weight', '重量')->display(function ($weight){
             return $weight.' kg/'.$this->unit;
         })->label();
@@ -105,15 +108,11 @@ class ItemController extends ResponseController
      */
     protected function detail($id)
     {
-        $show = new Show(Item::findOrFail($id));
+        $item = Item::with('warehouse', 'origin')->findOrFail($id);
 
-//        $show->field('id', __('Id'));
-        $show->field('name', __('产品名称'));
-        $show->field('search_name', __('简称'));
-        $show->field('created_at', __('创建时间'));
-        $show->field('updated_at', __('更新时间'));
+        $solds = Sold::where('item_id', $item->id)->with('customerOrder')->orderBy('created_at', 'DESC')->get();
 
-        return $show;
+        return view('admin.item', compact('item', 'solds'));
     }
 
     /**
