@@ -53,7 +53,7 @@
                     <td>{{ $sold->created_at }}</td>
                     <td>{{ $sold->quantity }}</td>
                     <td>{{ $sold->sales_price }} * {{ $sold->quantity }} = {{ $amount1 = bigNumber($sold->sales_price)->multiply($sold->quantity) }}</td>
-                    <td>{{ $sold->purchase_total }} * {{ $sold->quantity }} = {{ $amount2 =bigNumber($sold->purchase_total)->multiply($sold->quantity) }}</td>
+                    <td>{{ $sold->purchase_price }} * {{ $sold->quantity }} = {{ $amount2 =bigNumber($sold->purchase_price)->multiply($sold->quantity) }}</td>
                     @if(bigNumber($amount1)->subtract($amount2)->getValue() < 0)
                         <td style="color: red">{{ bigNumber($amount1)->subtract($amount2)->getValue() }}</td>
                     @else
