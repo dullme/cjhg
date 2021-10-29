@@ -18,7 +18,7 @@ class CreateCustomerInvoicesTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->string('no')->unique()->comment('发票号');
             $table->date('date')->comment('开票日期');
-            $table->decimal('amount', 10,3)->comment('金额');
+            $table->decimal('amount', 10,5)->comment('金额');
             $table->string('images')->nullable();
             $table->timestamps();
         });

@@ -18,9 +18,9 @@ class CreateCustomerPaymentsTable extends Migration
             $table->unsignedBigInteger('customer_id')->comment('客户');
             $table->string('method')->comment('付款方式');
             $table->string('no')->unique()->comment('付款编号');
-            $table->decimal('amount',10,2)->comment('付款金额');
-            $table->decimal('to_be_written_off',10,2)->comment('待核销');
-            $table->decimal('written_off',10,2)->default(0)->comment('已核销');
+            $table->decimal('amount',15,5)->comment('付款金额');
+            $table->decimal('to_be_written_off',15,5)->comment('待核销');
+            $table->decimal('written_off',15,5)->default(0)->comment('已核销');
             $table->timestamp('payment_at')->comment('付款时间');
             $table->string('remark')->nullable()->comment('备注');
             $table->string('files')->nullable()->comment('凭证');

@@ -17,7 +17,7 @@ class CreateCustomerInvoiceDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_invoice_id')->comment('客户发票ID');
             $table->unsignedBigInteger('customer_order_id')->comment('客户订单ID');
-            $table->decimal('invoice', 10, 2)->comment('开票金额');
+            $table->decimal('invoice', 15, 5)->comment('开票金额');
             $table->timestamps();
         });
     }

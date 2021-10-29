@@ -21,7 +21,7 @@ class CreateWarehousesTable extends Migration
             $table->integer('quantity')->comment('数量');
             $table->integer('sold')->comment('已售');
             $table->integer('for_sale')->comment('待售');
-            $table->decimal('total')->comment('总金额');
+            $table->decimal('total', 15, 5)->comment('总金额');
             $table->string('remark')->nullable()->comment('产地');
             $table->timestamps();
         });

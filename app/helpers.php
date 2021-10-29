@@ -9,7 +9,7 @@ function unit()
     ];
 }
 
-function bigNumber($number, $scale = 2)
+function bigNumber($number, $scale = 5)
 {
     return new \Moontoast\Math\BigNumber($number, $scale);
 }
