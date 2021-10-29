@@ -18,7 +18,7 @@ class CreateOrderInfosTable extends Migration
             $table->unsignedBigInteger('customer_order_id');
             $table->unsignedBigInteger('item_id');
             $table->integer('quantity');
-            $table->decimal('unit_price', 10, 2);
+            $table->decimal('unit_price', 15, 5);
             $table->decimal('total', 10, 2);
             $table->string('content')->nullable()->comment('含量');
             $table->timestamps();

@@ -17,7 +17,7 @@ class CreateWarehousesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id')->comment('产品');
             $table->unsignedBigInteger('purchase_order_id')->comment('PO单号');
-            $table->decimal('unit_price', 10, 2)->comment('单价');
+            $table->decimal('unit_price', 15, 5)->comment('单价');
             $table->integer('quantity')->comment('数量');
             $table->integer('sold')->comment('已售');
             $table->integer('for_sale')->comment('待售');

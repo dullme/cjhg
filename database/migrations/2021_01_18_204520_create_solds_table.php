@@ -18,11 +18,11 @@ class CreateSoldsTable extends Migration
             $table->unsignedBigInteger('item_id')->comment('产品');
             $table->unsignedBigInteger('warehouse_id')->comment('产品库存ID');
             $table->unsignedBigInteger('customer_order_id')->comment('客户订单ID');
-            $table->decimal('sales_price', 10, 2)->comment('销售单价');
-            $table->decimal('purchase_price', 10, 2)->comment('进货单价');
+            $table->decimal('sales_price', 15, 5)->comment('销售单价');
+            $table->decimal('purchase_price', 15, 5)->comment('进货单价');
             $table->integer('quantity')->comment('数量');
-            $table->decimal('sales_total')->comment('销售总金额');
-            $table->decimal('purchase_total')->comment('采购总金额');
+            $table->decimal('sales_total', 10, 2)->comment('销售总金额');
+            $table->decimal('purchase_total', 10, 2)->comment('采购总金额');
             $table->timestamps();
         });
     }
