@@ -104,11 +104,11 @@
                                 <p style="margin-bottom: 20px">增值税({{ $customerOrders->vat * 100 }}%)</p>
                             </div>
                             <div style="padding-right: 8px;text-align: end">
-                                <p style="margin-bottom: 20px;font-weight: bold">¥{{ bigNumber($customerOrders->solds->sum('sales_total'), 5)->getValue() }}</p>
-                                <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->solds->sum('purchase_total'), 5)->getValue() }}</p>
+                                <p style="margin-bottom: 20px;font-weight: bold">¥{{ $sales_total = bigNumber(round($customerOrders->solds->sum('sales_total'), 2))->getValue() }}</p>
+                                <p style="margin-bottom: 20px">¥{{ $purchase_total = bigNumber(round($customerOrders->solds->sum('purchase_total'), 2))->getValue() }}</p>
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->freight)->getValue() }}</p>
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->commission)->getValue() }}</p>
-                                <p style="margin-bottom: 20px" title="{{ $vat = bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->divide(bigNumber($customerOrders->vat)->add(1))->multiply($customerOrders->vat)->getValue() }}">¥{{ $vat = $vat > 0 ? $vat : '0.00' }}</p>
+                                <p style="margin-bottom: 20px" title="{{ $vat = round(($sales_total-$purchase_total)/($customerOrders->vat+1)*$customerOrders->vat, 2) }}">¥{{ $vat = $vat > 0 ? $vat : '0.00' }}</p>
                             </div>
                         </div>
                         <hr style= "border:1px dashed #d8d8d8" />
@@ -116,13 +116,13 @@
                             <div style="color: #969696">
                                 <p title="销售金额-采购金额-运费-佣金-（销售金额-采购金额）/1.13*0.13">利润</p>
                             </div>
-                            @if(bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->subtract($customerOrders->freight)->subtract($customerOrders->commission)->getValue() > 0)
+                            @if(($res = $sales_total-$purchase_total-$customerOrders->freight-$customerOrders->commission) > 0)
                             <div style="font-weight: bold;padding-right: 8px;text-align: end;font-size: 16px">
-                                <p>¥{{ bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->subtract($customerOrders->freight)->subtract($customerOrders->commission)->subtract($vat)->getValue() }}</p>
+                                <p>¥{{ bigNumber($res-$vat)->getValue() }}</p>
                             </div>
                             @else
                                 <div style="font-weight: bold;padding-right: 8px;text-align: end;font-size: 16px">
-                                    <p>¥{{ bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->subtract($customerOrders->freight)->subtract($customerOrders->commission)->getValue() }}</p>
+                                    <p>¥{{ bigNumber($res)->getValue() }}</p>
                                 </div>
                             @endif
                         </div>

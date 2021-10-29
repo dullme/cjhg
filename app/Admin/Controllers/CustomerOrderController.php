@@ -377,8 +377,8 @@ EOF
         }])->find($id);
 
         $solds = $customerOrders->solds->groupBy('item_id')->map(function ($item) {
-            $purchase_total = bigNumber($item->sum('purchase_total'))->getValue(); //成本
-            $sales_total = bigNumber($item->sum('sales_total'))->getValue();
+            $purchase_total = bigNumber($item->sum('purchase_total'), 5)->getValue(); //成本
+            $sales_total = bigNumber($item->sum('sales_total'), 5)->getValue();
             $quantity = $item->sum('quantity');
 
             return [
