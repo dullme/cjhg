@@ -386,7 +386,7 @@ EOF
                 'weight'         => $item[0]['item']['weight'],
                 'unit'           => $item[0]['item']['unit'],
                 'origin'           => $item[0]['item']['origin']['name'],
-                'sales_price'    => bigNumber($sales_total)->divide($quantity)->getValue(),
+                'sales_price'    => $item[0]['sales_price'],
                 'quantity'       => $quantity,
                 'sales_total'    => $sales_total,
                 'purchase_total' => $purchase_total,
