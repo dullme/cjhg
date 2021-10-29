@@ -22,7 +22,7 @@ class HomeController extends Controller
         $content->title('Dashboard');
         $content->description('Description...');
 
-        $sold = Sold::all();
+        $orders = CustomerOrder::all();
 
 
         $warehouses = Warehouse::all();
@@ -31,11 +31,11 @@ class HomeController extends Controller
 
             return $item;
         });
-        
 
-        $sales_total = '¥ '. bigNumber($sold->sum('sales_total'))->getValue();
+
+        $sales_total = '¥ '. bigNumber($orders->sum('amount'))->getValue();
         $purchase_total = '¥ '. bigNumber($warehouses->sum('amount'))->getValue();
-
+        
         $content->row(function ($row) use ($sales_total, $purchase_total) {
             $row->column(3, new InfoBox('客户', 'users', 'aqua', '/admin/customers', Customer::count()));
             $row->column(3, new InfoBox('供应商', 'book', 'yellow', 'admin/suppliers', Supplier::count()));
