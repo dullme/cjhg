@@ -39,6 +39,7 @@
         <table class="table table-hover grid-table">
             <thead>
             <tr>
+                <th class="column-total_quantity">销售单号</th>
                 <th class="column-total_quantity">销售时间</th>
                 <th class="column-total_quantity">数量</th>
                 <th class="column-sold">销售金额</th>
@@ -50,7 +51,8 @@
             <tbody>
             @foreach($solds as $sold)
                 <tr>
-                    <td>{{ $sold->created_at }}</td>
+                    <td><a href="/admin/customer-orders/{{ $sold->customerOrder->id }}">{{ $sold->customerOrder->no }}</a></td>
+                    <td>{{ substr($sold->customerOrder->order_time, 0, 10) }}</td>
                     <td>{{ $sold->quantity }}</td>
                     <td>{{ $sold->sales_price }} * {{ $sold->quantity }} = {{ $amount1 = bigNumber($sold->sales_price)->multiply($sold->quantity) }}</td>
                     <td>{{ $sold->purchase_price }} * {{ $sold->quantity }} = {{ $amount2 =bigNumber($sold->purchase_price)->multiply($sold->quantity) }}</td>
