@@ -104,8 +104,8 @@
                                 <p style="margin-bottom: 20px">增值税({{ $customerOrders->vat * 100 }}%)</p>
                             </div>
                             <div style="padding-right: 8px;text-align: end">
-                                <p style="margin-bottom: 20px;font-weight: bold">¥{{ bigNumber($customerOrders->solds->sum('sales_total'))->getValue() }}</p>
-                                <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->solds->sum('purchase_total'))->getValue() }}</p>
+                                <p style="margin-bottom: 20px;font-weight: bold">¥{{ bigNumber($customerOrders->solds->sum('sales_total'), 5)->getValue() }}</p>
+                                <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->solds->sum('purchase_total'), 5)->getValue() }}</p>
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->freight)->getValue() }}</p>
                                 <p style="margin-bottom: 20px">¥{{ bigNumber($customerOrders->commission)->getValue() }}</p>
                                 <p style="margin-bottom: 20px" title="{{ $vat = bigNumber($customerOrders->solds->sum('sales_total'))->subtract($customerOrders->solds->sum('purchase_total'))->divide(bigNumber($customerOrders->vat)->add(1))->multiply($customerOrders->vat)->getValue() }}">¥{{ $vat = $vat > 0 ? $vat : '0.00' }}</p>

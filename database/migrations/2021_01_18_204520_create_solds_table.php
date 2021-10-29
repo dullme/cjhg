@@ -21,8 +21,8 @@ class CreateSoldsTable extends Migration
             $table->decimal('sales_price', 15, 5)->comment('销售单价');
             $table->decimal('purchase_price', 15, 5)->comment('进货单价');
             $table->integer('quantity')->comment('数量');
-            $table->decimal('sales_total', 10, 2)->comment('销售总金额');
-            $table->decimal('purchase_total', 10, 2)->comment('采购总金额');
+            $table->decimal('sales_total', 15, 5)->comment('销售总金额');
+            $table->decimal('purchase_total', 15, 5)->comment('采购总金额');
             $table->timestamps();
         });
     }
