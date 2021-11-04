@@ -17,5 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/asd/{idcard}', [\App\Http\Controllers\HomeController::class, 'asd']);
+
 
 
